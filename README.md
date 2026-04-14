@@ -117,7 +117,7 @@
 ## بنية المشروع
 
 ```
-nasaq-prototype/
+nasq/
 ├── client/                    # الواجهة الأمامية (React)
 │   ├── public/
 │   │   └── survey.html        # الاستبانة البحثية
@@ -161,7 +161,7 @@ nasaq-prototype/
 
 ```bash
 # 1. استنساخ المستودع
-git clone <repository-url>
+git clone <[https://github.com/ghexu/nasq](https://github.com/ghexu/nasq)>
 cd nasq-prototype
 
 # 2. تثبيت الاعتماديات
@@ -205,7 +205,6 @@ pnpm dev
 | `rubrics` | سلالم التقدير لكل نشاط |
 
 لتحديث مخطط قاعدة البيانات:
-
 
 pnpm db:push
 
