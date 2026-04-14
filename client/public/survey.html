@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>استبانة تقييم منصة نسق | جامعة الأميرة نورة</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #6B21A8;
+      --primary-light: #9333EA;
+      --primary-soft: #F3E8FF;
+      --accent: #0EA5E9;
+      --accent-soft: #E0F2FE;
+      --success: #10B981;
+      --bg: #F8F5FF;
+      --card: #FFFFFF;
+      --text: #1E1B4B;
+      --muted: #6B7280;
+      --border: #E5E7EB;
+      --radius: 16px;
+    }
+
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: linear-gradient(160deg, #F0F4FF 0%, #F9FAFB 40%, #F0FDFF 100%);
+      background-attachment: fixed;
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 60px;
+    }
+
+    /* ─── Header ─── */
+    .header {
+      background: linear-gradient(160deg, #FFFFFF 0%, #F3E8FF 50%, #E0F2FE 100%);
+      color: var(--text);
+      padding: 52px 24px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid #EDE9FE;
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(107,33,168,0.07) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -80px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(14,165,233,0.07) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(107,33,168,0.08);
+      border: 1px solid rgba(107,33,168,0.2);
+      border-radius: 999px;
+      padding: 6px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #6B21A8;
+      margin-bottom: 4px;
+    }
+    .header h1 {
+      font-size: clamp(22px, 5vw, 36px);
+      font-weight: 800;
+      line-height: 1.4;
+      margin-bottom: 12px;
+      color: #1E1B4B;
+    }
+    .header h1 span { color: #6B21A8; }
+    .header p {
+      font-size: 15px;
+      color: #4B5563;
+      max-width: 580px;
+      margin: 0 auto 24px;
+      line-height: 1.8;
+    }
+    .header-meta {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .header-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: #374151;
+      background: #fff;
+      border: 1px solid #E5E7EB;
+      border-radius: 999px;
+      padding: 5px 14px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+
+    /* ─── Progress ─── */
+    .progress-wrap {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(107,33,168,0.08);
+    }
+    .progress-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .progress-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--primary);
+      white-space: nowrap;
+    }
+    .progress-bar-bg {
+      flex: 1;
+      height: 8px;
+      background: var(--primary-soft);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light));
+      border-radius: 999px;
+      transition: width 0.4s ease;
+      width: 0%;
+    }
+    .progress-pct {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      min-width: 36px;
+      text-align: left;
+    }
+
+    /* ─── Container ─── */
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 32px 16px;
+    }
+
+    /* ─── Section Card ─── */
+    .section-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: 0 2px 16px rgba(107,33,168,0.07);
+      border: 1px solid var(--border);
+      margin-bottom: 28px;
+      overflow: hidden;
+    }
+    .section-header {
+      background: linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%);
+      padding: 20px 28px;
+      border-bottom: 1px solid #DDD6FE;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .section-num {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, #6B21A8, #9333EA);
+      color: #fff;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 800;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(107,33,168,0.3);
+    }
+    .section-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #3B0764;
+    }
+    .section-subtitle {
+      font-size: 13px;
+      color: #7C3AED;
+      margin-top: 2px;
+    }
+    .section-body { padding: 24px 28px; }
+
+    /* ─── Likert Scale ─── */
+    .likert-legend {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(135deg, #F5F3FF, #E0F2FE);
+      border: 1px solid #C4B5FD;
+      border-radius: 10px;
+      padding: 10px 16px;
+      margin-bottom: 20px;
+      font-size: 12px;
+      color: #5B21B6;
+      font-weight: 600;
+    }
+    .likert-legend-item { display: flex; align-items: center; gap: 5px; }
+    .likert-legend-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .question-block {
+      margin-bottom: 22px;
+      padding-bottom: 22px;
+      border-bottom: 1px dashed var(--border);
+    }
+    .question-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    .question-text {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 14px;
+      line-height: 1.7;
+      display: flex;
+      gap: 10px;
+    }
+    .question-num {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      background: var(--primary-soft);
+      border-radius: 6px;
+      padding: 2px 8px;
+      height: fit-content;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* Likert radio row */
+    .likert-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+    .likert-option { text-align: center; }
+    .likert-option input[type="radio"] { display: none; }
+    .likert-option label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      padding: 10px 4px;
+      border-radius: 10px;
+      border: 2px solid var(--border);
+      background: #FAFAFA;
+      transition: all 0.2s;
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 500;
+      min-height: 72px;
+      justify-content: center;
+    }
+    .likert-option label .circle {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      background: #fff;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+    .likert-option input:checked + label {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+    .likert-option input:checked + label .circle {
+      background: linear-gradient(135deg, #6B21A8, #9333EA);
+      color: #fff;
+      border-color: #6B21A8;
+      box-shadow: 0 3px 10px rgba(107,33,168,0.35);
+    }
+    .likert-option label:hover {
+      border-color: var(--primary-light);
+      background: var(--primary-soft);
+    }
+    /* Color coding */
+    .likert-option:nth-child(1) input:checked + label { border-color: #EF4444; background: #FEF2F2; color: #DC2626; }
+    .likert-option:nth-child(1) input:checked + label .circle { background: #EF4444; border-color: #EF4444; color: #fff; }
+    .likert-option:nth-child(2) input:checked + label { border-color: #F97316; background: #FFF7ED; color: #EA580C; }
+    .likert-option:nth-child(2) input:checked + label .circle { background: #F97316; border-color: #F97316; color: #fff; }
+    .likert-option:nth-child(3) input:checked + label { border-color: #EAB308; background: #FEFCE8; color: #CA8A04; }
+    .likert-option:nth-child(3) input:checked + label .circle { background: #EAB308; border-color: #EAB308; color: #fff; }
+    .likert-option:nth-child(4) input:checked + label { border-color: #22C55E; background: #F0FDF4; color: #16A34A; }
+    .likert-option:nth-child(4) input:checked + label .circle { background: #22C55E; border-color: #22C55E; color: #fff; }
+    .likert-option:nth-child(5) input:checked + label { border-color: #6B21A8; background: var(--primary-soft); color: var(--primary); }
+    .likert-option:nth-child(5) input:checked + label .circle { background: #6B21A8; border-color: #6B21A8; color: #fff; }
+
+    /* ─── Select & Radio ─── */
+    .form-group { margin-bottom: 20px; }
+    .form-group:last-child { margin-bottom: 0; }
+    .form-label {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 10px;
+      display: flex;
+      gap: 10px;
+      line-height: 1.7;
+    }
+    .form-select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      background: #fff;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B21A8' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: left 14px center;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .form-select:focus { outline: none; border-color: var(--primary); }
+
+    .radio-group { display: flex; flex-direction: column; gap: 10px; }
+    .radio-item { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+    .radio-item input[type="radio"] { display: none; }
+    .radio-item .radio-box {
+      width: 20px; height: 20px;
+      border: 2px solid var(--border);
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .radio-item input:checked ~ .radio-box {
+      border-color: var(--primary);
+      background: linear-gradient(135deg, #6B21A8, #9333EA);
+    }
+    .radio-item input:checked ~ .radio-box::after {
+      content: '';
+      width: 8px; height: 8px;
+      background: #fff;
+      border-radius: 50%;
+    }
+    .radio-item .radio-label { font-size: 14px; color: var(--text); }
+    .radio-item input:checked ~ .radio-label { color: var(--primary); font-weight: 600; }
+
+    .checkbox-group { display: flex; flex-direction: column; gap: 10px; }
+    .checkbox-item { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+    .checkbox-item input[type="checkbox"] { display: none; }
+    .checkbox-item .check-box {
+      width: 20px; height: 20px;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .checkbox-item input:checked ~ .check-box {
+      border-color: var(--primary);
+      background: linear-gradient(135deg, #6B21A8, #9333EA);
+    }
+    .checkbox-item input:checked ~ .check-box::after {
+      content: '✓';
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .checkbox-item .check-label { font-size: 14px; color: var(--text); }
+    .checkbox-item input:checked ~ .check-label { color: var(--primary); font-weight: 600; }
+
+    /* ─── Textarea ─── */
+    .form-textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      resize: vertical;
+      min-height: 100px;
+      transition: border-color 0.2s;
+      line-height: 1.7;
+    }
+    .form-textarea:focus { outline: none; border-color: var(--primary); }
+    .form-textarea::placeholder { color: #9CA3AF; }
+
+    /* ─── Submit Button ─── */
+    .submit-wrap {
+      text-align: center;
+      margin-top: 36px;
+    }
+    .btn-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      padding: 16px 48px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(107,33,168,0.35);
+      transition: all 0.2s;
+    }
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(107,33,168,0.45);
+    }
+    .btn-submit:active { transform: translateY(0); }
+
+    /* ─── Required star ─── */
+    .req { color: #EF4444; margin-right: 2px; }
+
+    /* ─── Success Screen ─── */
+    #success-screen {
+      display: none;
+      text-align: center;
+      padding: 60px 24px;
+    }
+    .success-icon {
+      width: 80px; height: 80px;
+      background: linear-gradient(135deg, #10B981, #059669);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 36px;
+      box-shadow: 0 8px 24px rgba(16,185,129,0.35);
+    }
+    #success-screen h2 {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    #success-screen p {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    /* ─── Validation ─── */
+    .error-msg {
+      color: #EF4444;
+      font-size: 12px;
+      margin-top: 6px;
+      display: none;
+    }
+    .question-block.has-error .error-msg { display: block; }
+    .question-block.has-error .likert-row { outline: 2px solid #FCA5A5; border-radius: 10px; }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 600px) {
+      .section-body { padding: 18px 16px; }
+      .section-header { padding: 16px 18px; }
+      .likert-option label { font-size: 10px; padding: 8px 2px; min-height: 64px; }
+      .likert-option label .circle { width: 24px; height: 24px; font-size: 11px; }
+      .likert-legend { flex-direction: column; gap: 6px; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;">
+    <span style="font-size:30px;font-weight:900;color:#6B21A8;letter-spacing:-1px;font-family:'Tajawal',sans-serif;">نسق</span>
+    <div style="width:1px;height:26px;background:#DDD6FE;"></div>
+    <div class="header-badge">✨ هاكاثون ذكاءثون 2026</div>
+  </div>
+  <h1>استبانة تقييم احتياجات<br/><span>أعضاء هيئة التدريس</span></h1>
+  <p>
+    تهدف هذه الاستبانة إلى التعرف على تحدياتكم في التصميم التعليمي وقياس أهمية منصة
+    <strong>نسق</strong> — مساعد الذكاء الاصطناعي لتصميم الأنشطة وسلالم التقدير.
+  </p>
+  <div class="header-meta">
+    <div class="header-meta-item">⏱ 7–10 دقائق</div>
+    <div class="header-meta-item">🔒 بياناتك سرية تماماً</div>
+    <div class="header-meta-item">📋 40 سؤالاً</div>
+  </div>
+</div>
+
+<!-- Progress Bar -->
+<div class="progress-wrap">
+  <div class="progress-inner">
+    <span class="progress-label">التقدم</span>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+    <span class="progress-pct" id="progressPct">0%</span>
+  </div>
+</div>
+
+<div class="container">
+  <form id="surveyForm" novalidate>
+
+    <!-- ══════════════════════════════════════
+         القسم الأول: البيانات الديموغرافية
+    ══════════════════════════════════════ -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">١</div>
+        <div>
+          <div class="section-title">البيانات الديموغرافية</div>
+          <div class="section-subtitle">معلومات عامة عن المشاركة</div>
+        </div>
+      </div>
+      <div class="section-body">
+
+        <div class="form-group">
+          <label class="form-label">
+            <span class="question-num">س١</span>
+            الكلية التي تنتمين إليها <span class="req">*</span>
+          </label>
+          <select class="form-select" name="q1" required>
+            <option value="">— اختاري الكلية —</option>
+            <option>كلية التربية والتنمية البشرية</option>
+            <option>كلية العلوم الحاسوبية والمعلومات</option>
+            <option>كلية العلوم الصحية والتمريض</option>
+            <option>كلية الآداب والعلوم الاجتماعية</option>
+            <option>كلية العلوم</option>
+            <option>كلية الاقتصاد والإدارة</option>
+            <option>كلية الفنون والتصميم</option>
+            <option>كلية الحقوق والعلوم السياسية</option>
+            <option>أخرى</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            <span class="question-num">س٢</span>
+            الرتبة العلمية <span class="req">*</span>
+          </label>
+          <select class="form-select" name="q2" required>
+            <option value="">— اختاري الرتبة —</option>
+            <optgroup label="عضو هيئة التدريس (دكتوراه فأعلى)">
+              <option>أستاذة مساعدة</option>
+              <option>أستاذة مشاركة</option>
+              <option>أستاذة</option>
+            </optgroup>
+            <optgroup label="أخرى">
+              <option>محاضرة</option>
+              <option>معيدة</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            <span class="question-num">س٣</span>
+            سنوات الخبرة في التدريس الجامعي <span class="req">*</span>
+          </label>
+          <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="q3" value="أقل من 3 سنوات" required /><span class="radio-box"></span><span class="radio-label">أقل من 3 سنوات</span></label>
+            <label class="radio-item"><input type="radio" name="q3" value="من 3 إلى 7 سنوات" /><span class="radio-box"></span><span class="radio-label">من 3 إلى 7 سنوات</span></label>
+            <label class="radio-item"><input type="radio" name="q3" value="من 8 إلى 15 سنة" /><span class="radio-box"></span><span class="radio-label">من 8 إلى 15 سنة</span></label>
+            <label class="radio-item"><input type="radio" name="q3" value="أكثر من 15 سنة" /><span class="radio-box"></span><span class="radio-label">أكثر من 15 سنة</span></label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            <span class="question-num">س٤</span>
+            عدد المقررات التي تدرّسينها في الفصل الدراسي الواحد <span class="req">*</span>
+          </label>
+          <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="q4" value="مقرر واحد" required /><span class="radio-box"></span><span class="radio-label">مقرر واحد</span></label>
+            <label class="radio-item"><input type="radio" name="q4" value="مقررين" /><span class="radio-box"></span><span class="radio-label">مقررين</span></label>
+            <label class="radio-item"><input type="radio" name="q4" value="3 مقررات" /><span class="radio-box"></span><span class="radio-label">3 مقررات</span></label>
+            <label class="radio-item"><input type="radio" name="q4" value="4 مقررات أو أكثر" /><span class="radio-box"></span><span class="radio-label">4 مقررات أو أكثر</span></label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         القسم الثاني: التحديات الحالية
+    ══════════════════════════════════════ -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">٢</div>
+        <div>
+          <div class="section-title">التحديات الحالية في التصميم التعليمي</div>
+          <div class="section-subtitle">حددي مدى موافقتك على كل عبارة</div>
+        </div>
+      </div>
+      <div class="section-body">
+
+        <div class="likert-legend">
+          <div class="likert-legend-item"><div class="likert-legend-dot" style="background:#EF4444"></div>١ = لا أوافق بشدة</div>
+          <div class="likert-legend-item"><div class="likert-legend-dot" style="background:#F97316"></div>٢ = لا أوافق</div>
+          <div class="likert-legend-item"><div class="likert-legend-dot" style="background:#EAB308"></div>٣ = محايدة</div>
+          <div class="likert-legend-item"><div class="likert-legend-dot" style="background:#22C55E"></div>٤ = أوافق</div>
+          <div class="likert-legend-item"><div class="likert-legend-dot" style="background:#6B21A8"></div>٥ = أوافق بشدة</div>
+        </div>
+
+        <!-- Q5–Q12 -->
+        <div id="q5-block" class="question-block">
+          <div class="question-text"><span class="question-num">س٥</span>أجد صعوبة في صياغة نواتج التعلم بشكل صحيح وفق معايير التصميم التعليمي.</div>
+          <div class="likert-row" data-name="q5">
+            <div class="likert-option"><input type="radio" name="q5" id="q5-1" value="1" required/><label for="q5-1"><div class="circle">١</div>لا أوافق بشدة</label></div>
+            <div class="likert-option"><input type="radio" name="q5" id="q5-2" value="2"/><label for="q5-2"><div class="circle">٢</div>لا أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q5" id="q5-3" value="3"/><label for="q5-3"><div class="circle">٣</div>محايدة</label></div>
+            <div class="likert-option"><input type="radio" name="q5" id="q5-4" value="4"/><label for="q5-4"><div class="circle">٤</div>أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q5" id="q5-5" value="5"/><label for="q5-5"><div class="circle">٥</div>أوافق بشدة</label></div>
+          </div>
+          <div class="error-msg">⚠ يُرجى اختيار إجابة</div>
+        </div>
+
+        <div id="q6-block" class="question-block">
+          <div class="question-text"><span class="question-num">س٦</span>يستغرق مني تصميم الأنشطة التعليمية المناسبة لنواتج التعلم وقتاً طويلاً.</div>
+          <div class="likert-row" data-name="q6">
+            <div class="likert-option"><input type="radio" name="q6" id="q6-1" value="1" required/><label for="q6-1"><div class="circle">١</div>لا أوافق بشدة</label></div>
+            <div class="likert-option"><input type="radio" name="q6" id="q6-2" value="2"/><label for="q6-2"><div class="circle">٢</div>لا أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q6" id="q6-3" value="3"/><label for="q6-3"><div class="circle">٣</div>محايدة</label></div>
+            <div class="likert-option"><input type="radio" name="q6" id="q6-4" value="4"/><label for="q6-4"><div class="circle">٤</div>أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q6" id="q6-5" value="5"/><label for="q6-5"><div class="circle">٥</div>أوافق بشدة</label></div>
+          </div>
+          <div class="error-msg">⚠ يُرجى اختيار إجابة</div>
+        </div>
+
+        <div id="q7-block" class="question-block">
+          <div class="question-text"><span class="question-num">س٧</span>أواجه تحدياً في ربط الأنشطة التعليمية بنواتج التعلم بشكل منهجي ومتسق.</div>
+          <div class="likert-row" data-name="q7">
+            <div class="likert-option"><input type="radio" name="q7" id="q7-1" value="1" required/><label for="q7-1"><div class="circle">١</div>لا أوافق بشدة</label></div>
+            <div class="likert-option"><input type="radio" name="q7" id="q7-2" value="2"/><label for="q7-2"><div class="circle">٢</div>لا أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q7" id="q7-3" value="3"/><label for="q7-3"><div class="circle">٣</div>محايدة</label></div>
+            <div class="likert-option"><input type="radio" name="q7" id="q7-4" value="4"/><label for="q7-4"><div class="circle">٤</div>أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q7" id="q7-5" value="5"/><label for="q7-5"><div class="circle">٥</div>أوافق بشدة</label></div>
+          </div>
+          <div class="error-msg">⚠ يُرجى اختيار إجابة</div>
+        </div>
+
+        <div id="q8-block" class="question-block">
+          <div class="question-text"><span class="question-num">س٨</span>أجد صعوبة في تصميم سلالم التقدير المناسبة لتقييم الأنشطة التعليمية.</div>
+          <div class="likert-row" data-name="q8">
+            <div class="likert-option"><input type="radio" name="q8" id="q8-1" value="1" required/><label for="q8-1"><div class="circle">١</div>لا أوافق بشدة</label></div>
+            <div class="likert-option"><input type="radio" name="q8" id="q8-2" value="2"/><label for="q8-2"><div class="circle">٢</div>لا أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q8" id="q8-3" value="3"/><label for="q8-3"><div class="circle">٣</div>محايدة</label></div>
+            <div class="likert-option"><input type="radio" name="q8" id="q8-4" value="4"/><label for="q8-4"><div class="circle">٤</div>أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q8" id="q8-5" value="5"/><label for="q8-5"><div class="circle">٥</div>أوافق بشدة</label></div>
+          </div>
+          <div class="error-msg">⚠ يُرجى اختيار إجابة</div>
+        </div>
+
+        <div id="q9-block" class="question-block">
+          <div class="question-text"><span class="question-num">س٩</span>لا تتوفر لديّ أدوات رقمية متخصصة تساعدني في التصميم التعليمي لمقرراتي.</div>
+          <div class="likert-row" data-name="q9">
+            <div class="likert-option"><input type="radio" name="q9" id="q9-1" value="1" required/><label for="q9-1"><div class="circle">١</div>لا أوافق بشدة</label></div>
+            <div class="likert-option"><input type="radio" name="q9" id="q9-2" value="2"/><label for="q9-2"><div class="circle">٢</div>لا أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q9" id="q9-3" value="3"/><label for="q9-3"><div class="circle">٣</div>محايدة</label></div>
+            <div class="likert-option"><input type="radio" name="q9" id="q9-4" value="4"/><label for="q9-4"><div class="circle">٤</div>أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q9" id="q9-5" value="5"/><label for="q9-5"><div class="circle">٥</div>أوافق بشدة</label></div>
+          </div>
+          <div class="error-msg">⚠ يُرجى اختيار إجابة</div>
+        </div>
+
+        <div id="q10-block" class="question-block">
+          <div class="question-text"><span class="question-num">س١٠</span>أحتاج إلى وقت كبير لإعداد وثائق التصميم التعليمي لكل مقرر من مقرراتي.</div>
+          <div class="likert-row" data-name="q10">
+            <div class="likert-option"><input type="radio" name="q10" id="q10-1" value="1" required/><label for="q10-1"><div class="circle">١</div>لا أوافق بشدة</label></div>
+            <div class="likert-option"><input type="radio" name="q10" id="q10-2" value="2"/><label for="q10-2"><div class="circle">٢</div>لا أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q10" id="q10-3" value="3"/><label for="q10-3"><div class="circle">٣</div>محايدة</label></div>
+            <div class="likert-option"><input type="radio" name="q10" id="q10-4" value="4"/><label for="q10-4"><div class="circle">٤</div>أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q10" id="q10-5" value="5"/><label for="q10-5"><div class="circle">٥</div>أوافق بشدة</label></div>
+          </div>
+          <div class="error-msg">⚠ يُرجى اختيار إجابة</div>
+        </div>
+
+        <div id="q11-block" class="question-block">
+          <div class="question-text"><span class="question-num">س١١</span>أشعر بالحاجة إلى دعم متخصص في التصميم التعليمي أثناء إعداد مقرراتي.</div>
+          <div class="likert-row" data-name="q11">
+            <div class="likert-option"><input type="radio" name="q11" id="q11-1" value="1" required/><label for="q11-1"><div class="circle">١</div>لا أوافق بشدة</label></div>
+            <div class="likert-option"><input type="radio" name="q11" id="q11-2" value="2"/><label for="q11-2"><div class="circle">٢</div>لا أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q11" id="q11-3" value="3"/><label for="q11-3"><div class="circle">٣</div>محايدة</label></div>
+            <div class="likert-option"><input type="radio" name="q11" id="q11-4" value="4"/><label for="q11-4"><div class="circle">٤</div>أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q11" id="q11-5" value="5"/><label for="q11-5"><div class="circle">٥</div>أوافق بشدة</label></div>
+          </div>
+          <div class="error-msg">⚠ يُرجى اختيار إجابة</div>
+        </div>
+
+        <!-- سؤال استراتيجي: الوقت الفعلي المهدر -->
+        <div class="form-group" style="background:#FFF7ED;border:1.5px solid #FED7AA;border-radius:12px;padding:16px 18px;margin-bottom:22px;">
+          <label class="form-label">
+            <span class="question-num" style="background:#FEF3C7;color:#D97706;">س١٢أ</span>
+            كم ساعة تقضين تقريباً في إعداد وثائق التصميم التعليمي (نواتج التعلم، الأنشطة، سلالم التقدير) لكل مقرر؟ <span class="req">*</span>
+          </label>
+          <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="q12a" value="أقل من ساعة" required /><span class="radio-box"></span><span class="radio-label">أقل من ساعة</span></label>
+            <label class="radio-item"><input type="radio" name="q12a" value="من 1 إلى 3 ساعات" /><span class="radio-box"></span><span class="radio-label">من 1 إلى 3 ساعات</span></label>
+            <label class="radio-item"><input type="radio" name="q12a" value="من 3 إلى 6 ساعات" /><span class="radio-box"></span><span class="radio-label">من 3 إلى 6 ساعات</span></label>
+            <label class="radio-item"><input type="radio" name="q12a" value="من 6 إلى 10 ساعات" /><span class="radio-box"></span><span class="radio-label">من 6 إلى 10 ساعات</span></label>
+            <label class="radio-item"><input type="radio" name="q12a" value="أكثر من 10 ساعات" /><span class="radio-box"></span><span class="radio-label">أكثر من 10 ساعات</span></label>
+          </div>
+        </div>
+
+        <div id="q12-block" class="question-block">
+          <div class="question-text"><span class="question-num">س١٢</span>يصعب عليّ التمييز بين مستويات تصنيف بلوم عند صياغة الأهداف الإجرائية.</div>
+          <div class="likert-row" data-name="q12">
+            <div class="likert-option"><input type="radio" name="q12" id="q12-1" value="1" required/><label for="q12-1"><div class="circle">١</div>لا أوافق بشدة</label></div>
+            <div class="likert-option"><input type="radio" name="q12" id="q12-2" value="2"/><label for="q12-2"><div class="circle">٢</div>لا أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q12" id="q12-3" value="3"/><label for="q12-3"><div class="circle">٣</div>محايدة</label></div>
+            <div class="likert-option"><input type="radio" name="q12" id="q12-4" value="4"/><label for="q12-4"><div class="circle">٤</div>أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q12" id="q12-5" value="5"/><label for="q12-5"><div class="circle">٥</div>أوافق بشدة</label></div>
+          </div>
+          <div class="error-msg">⚠ يُرجى اختيار إجابة</div>
+        </div>
+
+      </div>
+    </div>
+
+
+
+    <!-- ══════════════════════════════════════
+         القسم الثالث: أهمية مشروع نسق
+    ══════════════════════════════════════ -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">٣</div>
+        <div>
+          <div class="section-title">مدى أهمية مشروع نسق</div>
+          <div class="section-subtitle">حددي مدى موافقتك على كل عبارة</div>
+        </div>
+      </div>
+      <div class="section-body">
+
+        <div class="likert-legend">
+          <div class="likert-legend-item"><div class="likert-legend-dot" style="background:#EF4444"></div>١ = لا أوافق بشدة</div>
+          <div class="likert-legend-item"><div class="likert-legend-dot" style="background:#F97316"></div>٢ = لا أوافق</div>
+          <div class="likert-legend-item"><div class="likert-legend-dot" style="background:#EAB308"></div>٣ = محايدة</div>
+          <div class="likert-legend-item"><div class="likert-legend-dot" style="background:#22C55E"></div>٤ = أوافق</div>
+          <div class="likert-legend-item"><div class="likert-legend-dot" style="background:#6B21A8"></div>٥ = أوافق بشدة</div>
+        </div>
+
+        <!-- Q13–Q19 -->
+        <div id="q13-block" class="question-block">
+          <div class="question-text"><span class="question-num">س١٣</span>أرى أن وجود منصة ذكاء اصطناعي متخصصة في التصميم التعليمي سيوفر عليّ وقتاً وجهداً كبيرين.</div>
+          <div class="likert-row">
+            <div class="likert-option"><input type="radio" name="q13" id="q13-1" value="1" required/><label for="q13-1"><div class="circle">١</div>لا أوافق بشدة</label></div>
+            <div class="likert-option"><input type="radio" name="q13" id="q13-2" value="2"/><label for="q13-2"><div class="circle">٢</div>لا أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q13" id="q13-3" value="3"/><label for="q13-3"><div class="circle">٣</div>محايدة</label></div>
+            <div class="likert-option"><input type="radio" name="q13" id="q13-4" value="4"/><label for="q13-4"><div class="circle">٤</div>أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q13" id="q13-5" value="5"/><label for="q13-5"><div class="circle">٥</div>أوافق بشدة</label></div>
+          </div>
+          <div class="error-msg">⚠ يُرجى اختيار إجابة</div>
+        </div>
+
+        <div id="q14-block" class="question-block">
+          <div class="question-text"><span class="question-num">س١٤</span>سيساعدني توليد الأنشطة التعليمية تلقائياً بناءً على نواتج التعلم في تحسين جودة مقرراتي.</div>
+          <div class="likert-row">
+            <div class="likert-option"><input type="radio" name="q14" id="q14-1" value="1" required/><label for="q14-1"><div class="circle">١</div>لا أوافق بشدة</label></div>
+            <div class="likert-option"><input type="radio" name="q14" id="q14-2" value="2"/><label for="q14-2"><div class="circle">٢</div>لا أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q14" id="q14-3" value="3"/><label for="q14-3"><div class="circle">٣</div>محايدة</label></div>
+            <div class="likert-option"><input type="radio" name="q14" id="q14-4" value="4"/><label for="q14-4"><div class="circle">٤</div>أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q14" id="q14-5" value="5"/><label for="q14-5"><div class="circle">٥</div>أوافق بشدة</label></div>
+          </div>
+          <div class="error-msg">⚠ يُرجى اختيار إجابة</div>
+        </div>
+
+        <div id="q15-block" class="question-block">
+          <div class="question-text"><span class="question-num">س١٥</span>أرى أن توليد سلالم التقدير تلقائياً سيرفع من مستوى التقييم في مقرراتي.</div>
+          <div class="likert-row">
+            <div class="likert-option"><input type="radio" name="q15" id="q15-1" value="1" required/><label for="q15-1"><div class="circle">١</div>لا أوافق بشدة</label></div>
+            <div class="likert-option"><input type="radio" name="q15" id="q15-2" value="2"/><label for="q15-2"><div class="circle">٢</div>لا أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q15" id="q15-3" value="3"/><label for="q15-3"><div class="circle">٣</div>محايدة</label></div>
+            <div class="likert-option"><input type="radio" name="q15" id="q15-4" value="4"/><label for="q15-4"><div class="circle">٤</div>أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q15" id="q15-5" value="5"/><label for="q15-5"><div class="circle">٥</div>أوافق بشدة</label></div>
+          </div>
+          <div class="error-msg">⚠ يُرجى اختيار إجابة</div>
+        </div>
+
+        <div id="q16-block" class="question-block">
+          <div class="question-text"><span class="question-num">س١٦</span>سأستخدم منصة ذكاء اصطناعي لو كانت متاحة لمساعدتي في تصميم مقرراتي.</div>
+          <div class="likert-row">
+            <div class="likert-option"><input type="radio" name="q16" id="q16-1" value="1" required/><label for="q16-1"><div class="circle">١</div>لا أوافق بشدة</label></div>
+            <div class="likert-option"><input type="radio" name="q16" id="q16-2" value="2"/><label for="q16-2"><div class="circle">٢</div>لا أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q16" id="q16-3" value="3"/><label for="q16-3"><div class="circle">٣</div>محايدة</label></div>
+            <div class="likert-option"><input type="radio" name="q16" id="q16-4" value="4"/><label for="q16-4"><div class="circle">٤</div>أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q16" id="q16-5" value="5"/><label for="q16-5"><div class="circle">٥</div>أوافق بشدة</label></div>
+          </div>
+          <div class="error-msg">⚠ يُرجى اختيار إجابة</div>
+        </div>
+
+        <div id="q17-block" class="question-block">
+          <div class="question-text"><span class="question-num">س١٧</span>أعتقد أن دمج الذكاء الاصطناعي في التصميم التعليمي سيعزز جودة التعليم في الجامعة.</div>
+          <div class="likert-row">
+            <div class="likert-option"><input type="radio" name="q17" id="q17-1" value="1" required/><label for="q17-1"><div class="circle">١</div>لا أوافق بشدة</label></div>
+            <div class="likert-option"><input type="radio" name="q17" id="q17-2" value="2"/><label for="q17-2"><div class="circle">٢</div>لا أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q17" id="q17-3" value="3"/><label for="q17-3"><div class="circle">٣</div>محايدة</label></div>
+            <div class="likert-option"><input type="radio" name="q17" id="q17-4" value="4"/><label for="q17-4"><div class="circle">٤</div>أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q17" id="q17-5" value="5"/><label for="q17-5"><div class="circle">٥</div>أوافق بشدة</label></div>
+          </div>
+          <div class="error-msg">⚠ يُرجى اختيار إجابة</div>
+        </div>
+
+        <div id="q18-block" class="question-block">
+          <div class="question-text"><span class="question-num">س١٨</span>أرى أن مشروع نسق يعالج مشكلة حقيقية يعاني منها أعضاء هيئة التدريس.</div>
+          <div class="likert-row">
+            <div class="likert-option"><input type="radio" name="q18" id="q18-1" value="1" required/><label for="q18-1"><div class="circle">١</div>لا أوافق بشدة</label></div>
+            <div class="likert-option"><input type="radio" name="q18" id="q18-2" value="2"/><label for="q18-2"><div class="circle">٢</div>لا أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q18" id="q18-3" value="3"/><label for="q18-3"><div class="circle">٣</div>محايدة</label></div>
+            <div class="likert-option"><input type="radio" name="q18" id="q18-4" value="4"/><label for="q18-4"><div class="circle">٤</div>أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q18" id="q18-5" value="5"/><label for="q18-5"><div class="circle">٥</div>أوافق بشدة</label></div>
+          </div>
+          <div class="error-msg">⚠ يُرجى اختيار إجابة</div>
+        </div>
+
+        <!-- سؤال استراتيجي: مقارنة الحلول الحالية -->
+        <div class="form-group" style="background:#F0FDF4;border:1.5px solid #BBF7D0;border-radius:12px;padding:16px 18px;margin-bottom:22px;">
+          <label class="form-label">
+            <span class="question-num" style="background:#DCFCE7;color:#16A34A;">س١٨أ</span>
+            هل جربتِ استخدام أدوات ذكاء اصطناعي عامة (مثل ChatGPT) للمساعدة في التصميم التعليمي؟ وكيف كانت تجربتك؟ <span class="req">*</span>
+          </label>
+          <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="q18a" value="لم أجرب" required /><span class="radio-box"></span><span class="radio-label">لم أجرب</span></label>
+            <label class="radio-item"><input type="radio" name="q18a" value="جربت ولم تكن مفيدة" /><span class="radio-box"></span><span class="radio-label">جربت ولم تكن مفيدة — المخرجات غير دقيقة أو غير ملائمة</span></label>
+            <label class="radio-item"><input type="radio" name="q18a" value="جربت وكانت مفيدة جزئياً" /><span class="radio-box"></span><span class="radio-label">جربت وكانت مفيدة جزئياً — لكنها تحتاج تعديلات كثيرة</span></label>
+            <label class="radio-item"><input type="radio" name="q18a" value="جربت وكانت مفيدة لكن تفتقر للتخصص التعليمي" /><span class="radio-box"></span><span class="radio-label">جربت وكانت مفيدة لكنها تفتقر للتخصص في التصميم التعليمي</span></label>
+          </div>
+        </div>
+
+        <div id="q19-block" class="question-block">
+          <div class="question-text"><span class="question-num">س١٩</span>سيسهم مشروع نسق في تحقيق رؤية الجامعة نحو التحول الرقمي في التعليم.</div>
+          <div class="likert-row">
+            <div class="likert-option"><input type="radio" name="q19" id="q19-1" value="1" required/><label for="q19-1"><div class="circle">١</div>لا أوافق بشدة</label></div>
+            <div class="likert-option"><input type="radio" name="q19" id="q19-2" value="2"/><label for="q19-2"><div class="circle">٢</div>لا أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q19" id="q19-3" value="3"/><label for="q19-3"><div class="circle">٣</div>محايدة</label></div>
+            <div class="likert-option"><input type="radio" name="q19" id="q19-4" value="4"/><label for="q19-4"><div class="circle">٤</div>أوافق</label></div>
+            <div class="likert-option"><input type="radio" name="q19" id="q19-5" value="5"/><label for="q19-5"><div class="circle">٥</div>أوافق بشدة</label></div>
+          </div>
+          <div class="error-msg">⚠ يُرجى اختيار إجابة</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         القسم الرابع: تفضيلات الحل
+    ══════════════════════════════════════ -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">٤</div>
+        <div>
+          <div class="section-title">تفضيلات الحل والميزات المطلوبة</div>
+          <div class="section-subtitle">حددي مدى أهمية كل ميزة بالنسبة لك</div>
+        </div>
+      </div>
+      <div class="section-body">
+
+        <div class="likert-legend">
+          <div class="likert-legend-item"><div class="likert-legend-dot" style="background:#EF4444"></div>١ = غير مهمة</div>
+          <div class="likert-legend-item"><div class="likert-legend-dot" style="background:#F97316"></div>٢ = قليلة الأهمية</div>
+          <div class="likert-legend-item"><div class="likert-legend-dot" style="background:#EAB308"></div>٣ = محايدة</div>
+          <div class="likert-legend-item"><div class="likert-legend-dot" style="background:#22C55E"></div>٤ = مهمة</div>
+          <div class="likert-legend-item"><div class="likert-legend-dot" style="background:#6B21A8"></div>٥ = مهمة جداً</div>
+        </div>
+
+        <!-- Q20–Q28 -->
+        <div id="q20-block" class="question-block">
+          <div class="question-text"><span class="question-num">س٢٠</span>توليد نواتج التعلم تلقائياً بناءً على اسم المقرر ومستواه الأكاديمي.</div>
+          <div class="likert-row">
+            <div class="likert-option"><input type="radio" name="q20" id="q20-1" value="1" required/><label for="q20-1"><div class="circle">١</div>غير مهمة</label></div>
+            <div class="likert-option"><input type="radio" name="q20" id="q20-2" value="2"/><label for="q20-2"><div class="circle">٢</div>قليلة</label></div>
+            <div class="likert-option"><input type="radio" name="q20" id="q20-3" value="3"/><label for="q20-3"><div class="circle">٣</div>محايدة</label></div>
+            <div class="likert-option"><input type="radio" name="q20" id="q20-4" value="4"/><label for="q20-4"><div class="circle">٤</div>مهمة</label></div>
+            <div class="likert-option"><input type="radio" name="q20" id="q20-5" value="5"/><label for="q20-5"><div class="circle">٥</div>مهمة جداً</label></div>
+          </div>
+          <div class="error-msg">⚠ يُرجى اختيار إجابة</div>
+        </div>
+
+        <div id="q21-block" class="question-block">
+          <div class="question-text"><span class="question-num">س٢١</span>تحويل نواتج التعلم إلى أهداف إجرائية سلوكية قابلة للقياس.</div>
+          <div class="likert-row">
+            <div class="likert-option"><input type="radio" name="q21" id="q21-1" value="1" required/><label for="q21-1"><div class="circle">١</div>غير مهمة</label></div>
+            <div class="likert-option"><input type="radio" name="q21" id="q21-2" value="2"/><label for="q21-2"><div class="circle">٢</div>قليلة</label></div>
+            <div class="likert-option"><input type="radio" name="q21" id="q21-3" value="3"/><label for="q21-3"><div class="circle">٣</div>محايدة</label></div>
+            <div class="likert-option"><input type="radio" name="q21" id="q21-4" value="4"/><label for="q21-4"><div class="circle">٤</div>مهمة</label></div>
+            <div class="likert-option"><input type="radio" name="q21" id="q21-5" value="5"/><label for="q21-5"><div class="circle">٥</div>مهمة جداً</label></div>
+          </div>
+          <div class="error-msg">⚠ يُرجى اختيار إجابة</div>
+        </div>
+
+        <div id="q22-block" class="question-block">
+          <div class="question-text"><span class="question-num">س٢٢</span>اقتراح أنشطة تعليمية متنوعة لكل ناتج تعلم (مشاريع، نقاشات، اختبارات، عروض...).</div>
+          <div class="likert-row">
+            <div class="likert-option"><input type="radio" name="q22" id="q22-1" value="1" required/><label for="q22-1"><div class="circle">١</div>غير مهمة</label></div>
+            <div class="likert-option"><input type="radio" name="q22" id="q22-2" value="2"/><label for="q22-2"><div class="circle">٢</div>قليلة</label></div>
+            <div class="likert-option"><input type="radio" name="q22" id="q22-3" value="3"/><label for="q22-3"><div class="circle">٣</div>محايدة</label></div>
+            <div class="likert-option"><input type="radio" name="q22" id="q22-4" value="4"/><label for="q22-4"><div class="circle">٤</div>مهمة</label></div>
+            <div class="likert-option"><input type="radio" name="q22" id="q22-5" value="5"/><label for="q22-5"><div class="circle">٥</div>مهمة جداً</label></div>
+          </div>
+          <div class="error-msg">⚠ يُرجى اختيار إجابة</div>
+        </div>
+
+        <div id="q23-block" class="question-block">
+          <div class="question-text"><span class="question-num">س٢٣</span>توليد سلالم تقدير مفصلة لكل نشاط تعليمي بمعايير واضحة.</div>
+          <div class="likert-row">
+            <div class="likert-option"><input type="radio" name="q23" id="q23-1" value="1" required/><label for="q23-1"><div class="circle">١</div>غير مهمة</label></div>
+            <div class="likert-option"><input type="radio" name="q23" id="q23-2" value="2"/><label for="q23-2"><div class="circle">٢</div>قليلة</label></div>
+            <div class="likert-option"><input type="radio" name="q23" id="q23-3" value="3"/><label for="q23-3"><div class="circle">٣</div>محايدة</label></div>
+            <div class="likert-option"><input type="radio" name="q23" id="q23-4" value="4"/><label for="q23-4"><div class="circle">٤</div>مهمة</label></div>
+            <div class="likert-option"><input type="radio" name="q23" id="q23-5" value="5"/><label for="q23-5"><div class="circle">٥</div>مهمة جداً</label></div>
+          </div>
+          <div class="error-msg">⚠ يُرجى اختيار إجابة</div>
+        </div>
+
+        <div id="q24-block" class="question-block">
+          <div class="question-text"><span class="question-num">س٢٤</span>تصدير وثائق التصميم التعليمي بصيغ متعددة (Word، PDF) جاهزة للاستخدام.</div>
+          <div class="likert-row">
+            <div class="likert-option"><input type="radio" name="q24" id="q24-1" value="1" required/><label for="q24-1"><div class="circle">١</div>غير مهمة</label></div>
+            <div class="likert-option"><input type="radio" name="q24" id="q24-2" value="2"/><label for="q24-2"><div class="circle">٢</div>قليلة</label></div>
+            <div class="likert-option"><input type="radio" name="q24" id="q24-3" value="3"/><label for="q24-3"><div class="circle">٣</div>محايدة</label></div>
+            <div class="likert-option"><input type="radio" name="q24" id="q24-4" value="4"/><label for="q24-4"><div class="circle">٤</div>مهمة</label></div>
+            <div class="likert-option"><input type="radio" name="q24" id="q24-5" value="5"/><label for="q24-5"><div class="circle">٥</div>مهمة جداً</label></div>
+          </div>
+          <div class="error-msg">⚠ يُرجى اختيار إجابة</div>
+        </div>
+
+        <div id="q25-block" class="question-block">
+          <div class="question-text"><span class="question-num">س٢٥</span>إمكانية تعديل المحتوى المُولَّد بالذكاء الاصطناعي وتخصيصه وفق احتياجاتي.</div>
+          <div class="likert-row">
+            <div class="likert-option"><input type="radio" name="q25" id="q25-1" value="1" required/><label for="q25-1"><div class="circle">١</div>غير مهمة</label></div>
+            <div class="likert-option"><input type="radio" name="q25" id="q25-2" value="2"/><label for="q25-2"><div class="circle">٢</div>قليلة</label></div>
+            <div class="likert-option"><input type="radio" name="q25" id="q25-3" value="3"/><label for="q25-3"><div class="circle">٣</div>محايدة</label></div>
+            <div class="likert-option"><input type="radio" name="q25" id="q25-4" value="4"/><label for="q25-4"><div class="circle">٤</div>مهمة</label></div>
+            <div class="likert-option"><input type="radio" name="q25" id="q25-5" value="5"/><label for="q25-5"><div class="circle">٥</div>مهمة جداً</label></div>
+          </div>
+          <div class="error-msg">⚠ يُرجى اختيار إجابة</div>
+        </div>
+
+        <div id="q26-block" class="question-block">
+          <div class="question-text"><span class="question-num">س٢٦</span>دعم كامل للغة العربية في جميع المخرجات والواجهة.</div>
+          <div class="likert-row">
+            <div class="likert-option"><input type="radio" name="q26" id="q26-1" value="1" required/><label for="q26-1"><div class="circle">١</div>غير مهمة</label></div>
+            <div class="likert-option"><input type="radio" name="q26" id="q26-2" value="2"/><label for="q26-2"><div class="circle">٢</div>قليلة</label></div>
+            <div class="likert-option"><input type="radio" name="q26" id="q26-3" value="3"/><label for="q26-3"><div class="circle">٣</div>محايدة</label></div>
+            <div class="likert-option"><input type="radio" name="q26" id="q26-4" value="4"/><label for="q26-4"><div class="circle">٤</div>مهمة</label></div>
+            <div class="likert-option"><input type="radio" name="q26" id="q26-5" value="5"/><label for="q26-5"><div class="circle">٥</div>مهمة جداً</label></div>
+          </div>
+          <div class="error-msg">⚠ يُرجى اختيار إجابة</div>
+        </div>
+
+        <div id="q27-block" class="question-block">
+          <div class="question-text"><span class="question-num">س٢٧</span>سهولة الاستخدام دون الحاجة إلى تدريب مسبق أو خبرة تقنية.</div>
+          <div class="likert-row">
+            <div class="likert-option"><input type="radio" name="q27" id="q27-1" value="1" required/><label for="q27-1"><div class="circle">١</div>غير مهمة</label></div>
+            <div class="likert-option"><input type="radio" name="q27" id="q27-2" value="2"/><label for="q27-2"><div class="circle">٢</div>قليلة</label></div>
+            <div class="likert-option"><input type="radio" name="q27" id="q27-3" value="3"/><label for="q27-3"><div class="circle">٣</div>محايدة</label></div>
+            <div class="likert-option"><input type="radio" name="q27" id="q27-4" value="4"/><label for="q27-4"><div class="circle">٤</div>مهمة</label></div>
+            <div class="likert-option"><input type="radio" name="q27" id="q27-5" value="5"/><label for="q27-5"><div class="circle">٥</div>مهمة جداً</label></div>
+          </div>
+          <div class="error-msg">⚠ يُرجى اختيار إجابة</div>
+        </div>
+
+        <div id="q28-block" class="question-block">
+          <div class="question-text"><span class="question-num">س٢٨</span>التكامل مع نظام إدارة التعلم المستخدم في الجامعة (البلاك بورد).</div>
+          <div class="likert-row">
+            <div class="likert-option"><input type="radio" name="q28" id="q28-1" value="1" required/><label for="q28-1"><div class="circle">١</div>غير مهمة</label></div>
+            <div class="likert-option"><input type="radio" name="q28" id="q28-2" value="2"/><label for="q28-2"><div class="circle">٢</div>قليلة</label></div>
+            <div class="likert-option"><input type="radio" name="q28" id="q28-3" value="3"/><label for="q28-3"><div class="circle">٣</div>محايدة</label></div>
+            <div class="likert-option"><input type="radio" name="q28" id="q28-4" value="4"/><label for="q28-4"><div class="circle">٤</div>مهمة</label></div>
+            <div class="likert-option"><input type="radio" name="q28" id="q28-5" value="5"/><label for="q28-5"><div class="circle">٥</div>مهمة جداً</label></div>
+          </div>
+          <div class="error-msg">⚠ يُرجى اختيار إجابة</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         القسم الخامس: الاستخدام التقني
+    ══════════════════════════════════════ -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">٥</div>
+        <div>
+          <div class="section-title">الاستخدام التقني والتفضيلات</div>
+          <div class="section-subtitle">عاداتك في استخدام الأدوات الرقمية</div>
+        </div>
+      </div>
+      <div class="section-body">
+
+        <div class="form-group">
+          <label class="form-label">
+            <span class="question-num">س٢٩</span>
+            ما مدى استخدامك لأدوات الذكاء الاصطناعي في عملك الأكاديمي؟ <span class="req">*</span>
+          </label>
+          <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="q29" value="لا أستخدمها أبداً" required /><span class="radio-box"></span><span class="radio-label">لا أستخدمها أبداً</span></label>
+            <label class="radio-item"><input type="radio" name="q29" value="أستخدمها نادراً (مرة أو مرتين في الفصل)" /><span class="radio-box"></span><span class="radio-label">أستخدمها نادراً (مرة أو مرتين في الفصل)</span></label>
+            <label class="radio-item"><input type="radio" name="q29" value="أستخدمها أحياناً (مرة أسبوعياً)" /><span class="radio-box"></span><span class="radio-label">أستخدمها أحياناً (مرة أسبوعياً)</span></label>
+            <label class="radio-item"><input type="radio" name="q29" value="أستخدمها بانتظام (يومياً أو شبه يومي)" /><span class="radio-box"></span><span class="radio-label">أستخدمها بانتظام (يومياً أو شبه يومي)</span></label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            <span class="question-num">س٣٠</span>
+            ما أدوات الذكاء الاصطناعي التي تستخدمينها؟ (يمكن اختيار أكثر من إجابة)
+          </label>
+          <div class="checkbox-group">
+            <label class="checkbox-item"><input type="checkbox" name="q30" value="ChatGPT" /><span class="check-box"></span><span class="check-label">ChatGPT</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="q30" value="Copilot (Microsoft)" /><span class="check-box"></span><span class="check-label">Copilot (Microsoft)</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="q30" value="Gemini (Google)" /><span class="check-box"></span><span class="check-label">Gemini (Google)</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="q30" value="أدوات متخصصة في التعليم" /><span class="check-box"></span><span class="check-label">أدوات متخصصة في التعليم</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="q30" value="لا أستخدم أي أداة" /><span class="check-box"></span><span class="check-label">لا أستخدم أي أداة</span></label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            <span class="question-num">س٣١</span>
+            ما الجهاز الذي تفضلين استخدامه في العمل الأكاديمي؟ <span class="req">*</span>
+          </label>
+          <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="q31" value="الحاسوب المكتبي/المحمول" required /><span class="radio-box"></span><span class="radio-label">الحاسوب المكتبي / المحمول</span></label>
+            <label class="radio-item"><input type="radio" name="q31" value="الجوال" /><span class="radio-box"></span><span class="radio-label">الجوال</span></label>
+            <label class="radio-item"><input type="radio" name="q31" value="كلاهما بالتساوي" /><span class="radio-box"></span><span class="radio-label">كلاهما بالتساوي</span></label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            <span class="question-num">س٣٢</span>
+            ما الوقت الذي تفضلين فيه استخدام أدوات التصميم التعليمي؟ <span class="req">*</span>
+          </label>
+          <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="q32" value="أثناء ساعات الدوام الرسمي" required /><span class="radio-box"></span><span class="radio-label">أثناء ساعات الدوام الرسمي</span></label>
+            <label class="radio-item"><input type="radio" name="q32" value="خارج أوقات الدوام" /><span class="radio-box"></span><span class="radio-label">خارج أوقات الدوام</span></label>
+            <label class="radio-item"><input type="radio" name="q32" value="لا فرق" /><span class="radio-box"></span><span class="radio-label">لا فرق</span></label>
+          </div>
+        </div>
+
+        <!-- سؤال استراتيجي: الاستعداد للاشتراك -->
+        <div class="form-group" style="background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:12px;padding:16px 18px;">
+          <label class="form-label">
+            <span class="question-num" style="background:#DBEAFE;color:#1D4ED8;">س٣٢أ</span>
+            إذا أُتيحت منصة نسق كخدمة مدفوعة، ما الذي يصف موقفك؟ <span class="req">*</span>
+          </label>
+          <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="q32a" value="لن أدفع مقابلها" required /><span class="radio-box"></span><span class="radio-label">لن أدفع مقابلها — أفضل الأدوات المجانية</span></label>
+            <label class="radio-item"><input type="radio" name="q32a" value="مستعدة للدفع إذا كانت مجانية للجامعة" /><span class="radio-box"></span><span class="radio-label">مستعدة للاستخدام إذا اشتركت بها الجامعة مؤسسياً</span></label>
+            <label class="radio-item"><input type="radio" name="q32a" value="مستعدة للدفع حتى 50 ريال شهرياً" /><span class="radio-box"></span><span class="radio-label">مستعدة للدفع شخصياً حتى 50 ريالاً شهرياً</span></label>
+            <label class="radio-item"><input type="radio" name="q32a" value="مستعدة للدفع أكثر من 50 ريال شهرياً" /><span class="radio-box"></span><span class="radio-label">مستعدة للدفع شخصياً أكثر من 50 ريالاً شهرياً</span></label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         القسم السادس: التغذية الراجعة
+    ══════════════════════════════════════ -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">٦</div>
+        <div>
+          <div class="section-title">التغذية الراجعة المفتوحة</div>
+          <div class="section-subtitle">آراؤكم تُشكّل مستقبل منصة نسق</div>
+        </div>
+      </div>
+      <div class="section-body">
+
+        <div class="form-group">
+          <label class="form-label">
+            <span class="question-num">س٣٣</span>
+            ما أكبر تحدٍّ تواجهينه عند تصميم الأنشطة التعليمية لمقرراتك؟
+          </label>
+          <textarea class="form-textarea" name="q33" placeholder="شاركينا تجربتك بحرية..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            <span class="question-num">س٣٤</span>
+            ما الميزات التي تودّين أن تتضمنها منصة نسق ولم تُذكر في الاستبانة؟
+          </label>
+          <textarea class="form-textarea" name="q34" placeholder="أي ميزة تراها مفيدة..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            <span class="question-num">س٣٥</span>
+            هل لديك أي ملاحظات أو مقترحات إضافية لفريق نسق؟
+          </label>
+          <textarea class="form-textarea" name="q35" placeholder="ملاحظاتك تهمنا..."></textarea>
+        </div>
+
+        <!-- سؤال استراتيجي: الأثر على الطالبات -->
+        <div class="form-group" style="background:#FFF1F2;border:1.5px solid #FECDD3;border-radius:12px;padding:16px 18px;">
+          <label class="form-label">
+            <span class="question-num" style="background:#FFE4E6;color:#BE123C;">س٣٦</span>
+            برأيك، هل سيؤثر تحسين التصميم التعليمي بمساعدة الذكاء الاصطناعي إيجاباً على مستوى الطالبات وتحصيلهن الأكاديمي؟ <span class="req">*</span>
+          </label>
+          <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="q36" value="لا أعتقد ذلك" required /><span class="radio-box"></span><span class="radio-label">لا أعتقد ذلك</span></label>
+            <label class="radio-item"><input type="radio" name="q36" value="ربما، لكن التأثير سيكون محدوداً" /><span class="radio-box"></span><span class="radio-label">ربما، لكن التأثير سيكون محدوداً</span></label>
+            <label class="radio-item"><input type="radio" name="q36" value="نعم، سيحسن جودة التعلم بشكل ملحوظ" /><span class="radio-box"></span><span class="radio-label">نعم، سيحسن جودة التعلم بشكل ملحوظ</span></label>
+            <label class="radio-item"><input type="radio" name="q36" value="نعم بشدة، التصميم التعليمي الجيد هو أساس نجاح الطالبة" /><span class="radio-box"></span><span class="radio-label">نعم بشدة — التصميم التعليمي الجيد هو أساس نجاح الطالبة</span></label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="submit-wrap">
+      <button type="submit" class="btn-submit">
+        <span>إرسال الاستبانة</span>
+        <span>✉</span>
+      </button>
+    </div>
+
+  </form>
+
+  <!-- Success Screen -->
+  <div id="success-screen">
+    <div class="success-icon">✓</div>
+    <h2>شكراً لمشاركتكم الكريمة! 🌸</h2>
+    <p>
+      تم استلام إجاباتكم بنجاح. مشاركتكم ستسهم في تطوير منصة <strong>نسق</strong>
+      لخدمة أعضاء هيئة التدريس في جامعة الأميرة نورة بنت عبدالرحمن.
+      <br/><br/>
+      فريق نسق — هاكاثون ذكاءثون 2026
+    </p>
+  </div>
+
+</div>
+
+<script>
+  // ─── Progress tracking ───
+  const likertNames = ['q5','q6','q7','q8','q9','q10','q11','q12',
+                       'q13','q14','q15','q16','q17','q18','q19',
+                       'q20','q21','q22','q23','q24','q25','q26','q27','q28'];
+  const selectNames = ['q1','q2'];
+  const radioNames  = ['q3','q4','q12a','q18a','q29','q31','q32','q32a','q36'];
+  const totalRequired = likertNames.length + selectNames.length + radioNames.length;
+
+  function countAnswered() {
+    let n = 0;
+    [...likertNames, ...radioNames].forEach(name => {
+      if (document.querySelector(`input[name="${name}"]:checked`)) n++;
+    });
+    selectNames.forEach(name => {
+      const el = document.querySelector(`select[name="${name}"]`);
+      if (el && el.value) n++;
+    });
+    return n;
+  }
+
+  function updateProgress() {
+    const pct = Math.round((countAnswered() / totalRequired) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressPct').textContent = pct + '%';
+  }
+
+  document.getElementById('surveyForm').addEventListener('change', updateProgress);
+
+  // ─── Validation & Submit ───
+  document.getElementById('surveyForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    let valid = true;
+    let firstError = null;
+
+    // Validate selects
+    selectNames.forEach(name => {
+      const el = document.querySelector(`select[name="${name}"]`);
+      if (!el.value) {
+        el.style.borderColor = '#EF4444';
+        if (!firstError) firstError = el;
+        valid = false;
+      } else {
+        el.style.borderColor = '';
+      }
+    });
+
+    // Validate radios
+    radioNames.forEach(name => {
+      const checked = document.querySelector(`input[name="${name}"]:checked`);
+      if (!checked) {
+        valid = false;
+      }
+    });
+
+    // Validate likert
+    likertNames.forEach(name => {
+      const block = document.getElementById(name + '-block');
+      const checked = document.querySelector(`input[name="${name}"]:checked`);
+      if (!checked) {
+        block.classList.add('has-error');
+        if (!firstError) firstError = block;
+        valid = false;
+      } else {
+        block.classList.remove('has-error');
+      }
+    });
+
+    if (!valid) {
+      if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    // Collect data
+    const data = {};
+    const fd = new FormData(this);
+    // Handle checkboxes (multiple values)
+    const checkboxValues = [];
+    document.querySelectorAll('input[name="q30"]:checked').forEach(cb => {
+      checkboxValues.push(cb.value);
+    });
+    fd.forEach((val, key) => { if (key !== 'q30') data[key] = val; });
+    data['q30'] = checkboxValues.join(', ');
+    data['timestamp'] = new Date().toISOString();
+
+    // ─── إرسال البيانات إلى Google Sheets ───
+    // ضعي رابط Apps Script هنا بعد النشر
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwnWZvh8xcI3UeZC4FHEtBx_l6lIrSkrs9V4guvfeuLyMNDVsitqVLcmP4wNiYwDw/exec';
+
+    const submitBtn = document.querySelector('.btn-submit');
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span>جارٍ الإرسال...</span><span>⏳</span>';
+
+    // إرسال البيانات إلى Google Sheets
+    fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).catch(() => {});
+
+    // Show success (بعد ثانية واحدة)
+    setTimeout(() => {
+      document.getElementById('surveyForm').style.display = 'none';
+      document.getElementById('success-screen').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 800);
+  });
+
+  // Remove error on change
+  document.querySelectorAll('.likert-row input').forEach(input => {
+    input.addEventListener('change', () => {
+      const block = input.closest('.question-block');
+      if (block) block.classList.remove('has-error');
+    });
+  });
+</script>
+</body>
+</html>
